@@ -1,0 +1,53 @@
+package LearnJava;
+import java.util.Scanner;
+import java.util.Random;
+public class StonepaperScissors2 {
+	public static String choice(int choice) {
+		switch(choice) {
+			case 1: return "Stone";
+			case 2: return "Paper";
+			case 3: return "Scissors";
+			default: return "Invalid";
+		}
+	}
+	public void evaluate(int a, int b) {
+		if(a==b) {
+			System.out.println("It's a Draw");
+			return;
+		}
+		else if(a==1 && b==3) {
+			System.out.println("You wins! ");
+			return;
+		}
+		else if((a==2 && a==1)) {
+			System.out.println("You wins!");
+			return;
+		}
+		else if((a==3 && b==2)) {
+			System.out.println("You wins! ");
+			return;
+		}
+		else {
+			System.out.println("Computer wins!");
+			return;
+		}
+	}
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Random random = new Random();
+		System.out.println("Enter your choice: 1 for Stone, 2 for Paper, 3 for Scissors");
+		int userChoice = sc.nextInt();
+		if(userChoice>3 && userChoice<1) {
+			System.out.println("Invalid choice. Please run the program again!!");
+			return;
+		}
+		int compChoice = random.nextInt(3)+1;
+		System.out.println("Your choosed: "+choice(userChoice));
+		System.out.println("Computer choosed: "+choice(compChoice));
+		
+		StonepaperScissors2 obj = new StonepaperScissors2();
+		obj.evaluate(userChoice, compChoice);
+
+	}
+
+}
