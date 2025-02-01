@@ -1,0 +1,33 @@
+package LearnJava;
+import java.io.InputStream;
+import java.util.*;
+public class StonePaperScissors {
+	public void evaluate(char A, char B) {
+		if((A=='R' || A== 'r') && (B == 'S'|| B == 's') ) {
+			System.out.println("A wins!!");
+		}
+		else if((A=='P' || A== 'p') && (B == 'R'|| B == 'r') ) {
+			System.out.println("A wins!!");
+		}
+		else if((A=='S' || A == 's') && (B=='P' || B=='p' )){
+			System.out.println("A wins!!");
+		}
+		else if(A==B) {
+			System.out.println("It's a Draw match!!");
+		}
+		else System.out.println("B wins!!");
+	}
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("A enter a value :");
+		System.out.println("[R=> Rock , P=> paper , S=> Scissors]");
+		char user1 =sc.next().charAt(0);
+		System.out.println("B enter a value :");
+		System.out.println("[R=> Rock , P=> paper , S=> Scissors]");
+		char user2 = sc.next().charAt(0);
+		StonePaperScissors obj = new StonePaperScissors();
+		obj.evaluate(user1, user2);
+		}
+}
