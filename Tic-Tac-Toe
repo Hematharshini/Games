@@ -1,0 +1,115 @@
+package LearnJava;
+import java.util.*;
+public class TicTac {
+	public void print_board(char board[][]) {
+		System.out.println(board[0][0]+" | "+board[0][1]+" | "+board[0][2]);
+		System.out.println("-----------");
+		System.out.println(board[1][0]+" | "+board[1][1]+" | "+board[1][2]);
+		System.out.println("-----------");
+		System.out.println(board[2][0]+" | "+board[2][1]+" | "+board[2][2]);
+		
+	}
+	public void get_markers(char[] markers) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("choose X or O: ");
+		char input = sc.nextLine().charAt(0);
+		if(input=='X' || input == 'x') {
+			markers[0] = 'X';
+			markers[1] = 'O';
+		}
+		else if(input=='O' || input == 'o') {
+			markers[0] = 'O';
+			markers[1] = 'X';
+		}
+		else {
+			System.out.println("Invalid input, Please enter X or O");
+			get_markers(markers);
+		}
+	}
+	public void get_coordinates(int[] coorinates) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter the values of coordinates :");
+		coorinates[0] = sc.nextInt();
+		coorinates[1] = sc.nextInt();
+		if(coorinates[0]<0 || coorinates[0]>2 || coorinates[1]<0 || coorinates[1]>2) {
+			System.out.println("Invalid Coordinates. Please, enter the valid x and y coordinates");
+			get_coordinates(coorinates);
+		}
+	}
+	public int check_for_win(char board[][]) {
+		for(int i=0; i<3; i++) {
+			if(board[i][0]==board[i][1] && board[i][1]==board[i][2] && board[i][1] != ' ') {
+				return 1;
+			}
+		}
+		for(int i=0; i<3; i++) {
+			if(board[0][i]==board[1][i] && board[1][i]==board[2][i] && board[1][i] != ' ') {
+				return 1;
+			}
+		}
+		if(board[0][0]==board[1][1] && board[1][1]==board[2][2] && board[1][1] != ' ') {
+			return 1;
+		}
+		if(board[0][2]==board[1][1] && board[1][1]==board[2][0] && board[1][1] != ' ') {
+			return 1;
+		}
+		return 0;
+		
+	}
+	public int update_board(int chance,char board[][],char marker, int x, int y) {
+		board[x][y] = marker;
+		if(check_for_win(board)==1) {
+			return 1;
+		}
+		return 0;
+	}
+	public void play_game(char board[][]) {
+		int chance = 1;
+		char markers[] = {' ',' '};
+		get_markers(markers);
+		
+		for(int turns = 0; turns<9; turns++){
+			print_board(board);
+			int coorinates[] = new int[2];
+			get_coordinates(coorinates);
+			int x = coorinates[0];
+			int y = coorinates[1];
+			if (board[x][y] != ' ') {
+                System.out.println("Cell already occupied. Choose another cell.");
+                turns--; 
+                continue;
+            }
+
+			if(chance==1) {
+				board[x][y] = markers[0];
+				if(update_board(chance,board,markers[0],x,y)==1) {
+					print_board(board);
+					System.out.println("Player 1 wins!");
+					return;
+				}
+				chance = 0;
+			}
+			else {
+				board[x][y] = markers[1];
+				if(update_board(chance,board,markers[1],x,y)==1) {
+					print_board(board);
+					System.out.println("Player 2 wins!");
+					return;
+					
+				}
+				chance = 1;
+			}
+			
+	        }
+			print_board(board);
+			System.out.println("It's a draw");
+			
+		
+	}
+	public static void main(String[] args) {
+		TicTac obj = new TicTac();
+		char board[][] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
+		obj.play_game(board);
+	}
+
+}
